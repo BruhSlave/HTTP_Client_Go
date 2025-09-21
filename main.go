@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	url := "srv.msk01.gigacorp.local/_stats"
+	url := "http://srv.msk01.gigacorp.local/_stats"
 
 	request, err := http.NewRequest(http.MethodGet, url, nil)
 	if err != nil {

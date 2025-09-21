@@ -49,17 +49,17 @@ func main() {
 	networkUsage, _ := strconv.ParseFloat(partData[6], 64)
 
 	if loadAverage > 30 {
-		fmt.Printf("Load Average is too high: %f", loadAverage)
+		fmt.Printf("Load Average is too high: %d\n", int(loadAverage))
 	}
 	if percent := (usageRAM * 100) / amountRAM; percent > 80 {
-		fmt.Printf("Memory usage too high: %.0f%%", percent)
+		fmt.Printf("Memory usage too high: %d%%\n", int(percent))
 	}
 	if persent := (usageDiscSpace * 100) / amountDiscSpace; persent > 90 {
 		freeDiscSpace := (amountDiscSpace - usageDiscSpace) / (1024 * 1024)
-		fmt.Printf("Free disc space is too low: %f Mb left", freeDiscSpace)
+		fmt.Printf("Free disc space is too low: %d Mb left\n", int(freeDiscSpace))
 	}
 	if percent := (networkUsage * 100) / networkBandwidth; percent > 90 {
 		freeBandwidth := (networkBandwidth - networkUsage) / 1000_000
-		fmt.Printf("Network bandwidth usage high: %f Mbits/s available", freeBandwidth)
+		fmt.Printf("Network bandwidth usage high: %d Mbits/s available", int(freeBandwidth))
 	}
 }

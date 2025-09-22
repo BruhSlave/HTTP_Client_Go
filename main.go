@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"io"
-	"log"
 	"net/http"
 	"strconv"
 	"strings"
@@ -31,13 +30,7 @@ func getData(url string) (string, error) {
 	return (string(body)), nil
 }
 
-func main() {
-	url := "http://srv.msk01.gigacorp.local/_stats"
-	serverData, err := getData(url)
-	if err != nil {
-		log.Fatal(err)
-	}
-
+func printStats(serverData string) {
 	partData := strings.Split(serverData, ",")
 
 	loadAverage, _ := strconv.ParseFloat(partData[0], 64)
@@ -61,5 +54,25 @@ func main() {
 	if percent := (networkUsage * 100) / networkBandwidth; percent > 90 {
 		freeBandwidth := (networkBandwidth - networkUsage) / 1000_000
 		fmt.Printf("Network bandwidth usage high: %d Mbits/s available", int(freeBandwidth))
+	}
+}
+
+func main() {
+	url := "http://srv.msk01.gigacorp.local/_stats"
+	countError := 0
+
+	for {
+		serverData, err := getData(url)
+		if err != nil {
+			countError++
+
+			if countError >= 3 {
+				fmt.Println("Unable to fetch server statistic")
+				break
+			}
+			continue
+		}
+
+		printStats(serverData)
 	}
 }

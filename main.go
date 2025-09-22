@@ -49,11 +49,11 @@ func printStats(serverData string) {
 	}
 	if persent := (usageDiscSpace * 100) / amountDiscSpace; persent > 90 {
 		freeDiscSpace := (amountDiscSpace - usageDiscSpace) / (1024 * 1024)
-		fmt.Printf("Free disc space is too low: %d Mb left\n", int(freeDiscSpace))
+		fmt.Printf("Free disk space is too low: %d Mb left\n", int(freeDiscSpace))
 	}
 	if percent := (networkUsage * 100) / networkBandwidth; percent > 90 {
 		freeBandwidth := (networkBandwidth - networkUsage) / 1000_000
-		fmt.Printf("Network bandwidth usage high: %d Mbits/s available", int(freeBandwidth))
+		fmt.Printf("Network bandwidth usage high: %d Mbit/s available\n", int(freeBandwidth))
 	}
 }
 
